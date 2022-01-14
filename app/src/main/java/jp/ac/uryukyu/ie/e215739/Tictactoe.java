@@ -9,11 +9,23 @@ public class Tictactoe {
     static String MARU = "○";
     static String BATU = "x";
     Scanner scanner;
+    boolean isEnd;
     
     Tictactoe() {
         bord = new String[] { "-", "-", "-", "-", "-", "-", "-", "-", "-" };
         turn = 1;
         scanner = new Scanner(System.in);
+        isEnd = false;
+    }
+
+    public void start() {
+        while (!isEnd) {
+            display(bord);
+            target = player();
+            insertion();
+            isEnd = judge(bord);
+            turn++;
+        }
     }
     
     
