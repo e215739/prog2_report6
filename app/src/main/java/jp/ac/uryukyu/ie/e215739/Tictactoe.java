@@ -59,6 +59,40 @@ public class Tictactoe {
                 break;
         }
     }
+
+    public boolean judge(String[] bord) {
+        for (int i = 0; i < 9; i++) {
+            if (bord[i] != "-" && bord[i] == bord[i + 1] && bord[i] == bord[i + 2]) {//across
+                System.out.println(bord[i] + "の勝ち");
+                return true;
+            } else {
+                i += 2;
+            }
+        }
+        for (int i = 0; i < 3; i++) {
+            if (bord[i] != "-" && bord[i] == bord[i + 3] && bord[i] == bord[i + 6]) {//down
+                System.out.println(bord[i] + "の勝ち");
+                return true;
+            } 
+        }
+        
+        if (bord[6] != "-" && bord[6] == bord[4] && bord[6] == bord[2]) {//slanting
+            System.out.println(bord[6] + "の勝ち");
+            return true;
+        }
+
+        if (bord[0] != "-" && bord[0] == bord[4] && bord[0] == bord[8]) {
+            System.out.println(bord[0] + "の勝ち");
+            return true;
+        }
+
+        if (turn == 9) {
+            System.out.println("引き分け");
+            return true;
+        }
+        return false;
+        
+    }
     
 }
 
