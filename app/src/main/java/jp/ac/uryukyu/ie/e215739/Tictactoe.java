@@ -2,22 +2,38 @@ package jp.ac.uryukyu.ie.e215739;
 
 import java.util.Scanner;
 
+/**
+ * ○×ゲームのクラス
+ * String[] bord; //盤面
+ * int turn; //ターン
+ * int target; //挿入するマス目の番号
+ * static String MARU; //マスに挿入する記号　○
+ * static String BATU; //マスに挿入する記号　×
+ * Scanner scanner; //プレイヤーの入力受付用
+ * boolean isEnd; //ゲームを続けるかどうかの判定
+ */
 public class Tictactoe {
-    String[] bord;
-    int turn;
-    int target;
-    static String MARU = "○";
-    static String BATU = "x";
-    Scanner scanner;
-    boolean isEnd;
+    private String[] bord;
+    private int turn;
+    private int target;
+    private static String MARU = "○";
+    private static String BATU = "×";
+    private Scanner scanner;
+    private boolean isEnd;
     
-    Tictactoe() {
+    /**
+     * コンストラクタ。盤面、ターン、スキャナー、終了を指定する。
+     */
+    public Tictactoe() {
         bord = new String[] { "-", "-", "-", "-", "-", "-", "-", "-", "-" };
         turn = 1;
         scanner = new Scanner(System.in);
         isEnd = false;
     }
 
+    /**
+     * ○×ゲームを始めるメソッド
+     */
     public void start() {
         while (!isEnd) {
             display(bord);
@@ -28,7 +44,10 @@ public class Tictactoe {
         }
     }
     
-    
+    /**
+     * ターミナルに盤面を表示するメソッド
+     * @param bord　表示したい盤面
+     */
     public void display(String[] bord){
         for(int i = 0;i < 9; i++){
             System.out.println(bord[i] + bord[i + 1] + bord[i + 2]);
@@ -36,12 +55,19 @@ public class Tictactoe {
         }
     }
 
+    /**
+     * 標準入力を取得するメソッド
+     * @return　取得した入力
+     */
     public int player() {
         System.out.println("入れたい場所を入力してください");
         target = scanner.nextInt();
         return target;
     }
 
+    /**
+     * 盤面に○か×を挿入するメソッド
+     */
     public void insertion() {
         String player;
         if (turn % 2 == 1) {
@@ -82,6 +108,11 @@ public class Tictactoe {
         }
     }
 
+    /**
+     * ゲームが終了するかを判定するメソッド
+     * @param bord　確認するボード
+     * @return　ゲームの終了状態
+     */
     public boolean judge(String[] bord) {
         for (int i = 0; i < 9; i++) {
             if (bord[i] != "-" && bord[i] == bord[i + 1] && bord[i] == bord[i + 2]) {//across
