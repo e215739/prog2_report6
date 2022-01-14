@@ -1,15 +1,19 @@
 package jp.ac.uryukyu.ie.e215739;
 
+import java.util.Scanner;
+
 public class Tictactoe {
     String[] bord;
     int turn;
     int target;
     static String MARU = "○";
     static String BATU = "x";
+    Scanner scanner;
     
     Tictactoe() {
         bord = new String[] { "-", "-", "-", "-", "-", "-", "-", "-", "-" };
         turn = 1;
+        scanner = new Scanner(System.in);
     }
     
     
@@ -18,6 +22,12 @@ public class Tictactoe {
             System.out.println(bord[i] + bord[i + 1] + bord[i + 2]);
             i += 2;
         }
+    }
+
+    public int player() {
+        System.out.println("入れたい場所を入力してください");
+        target = scanner.nextInt();
+        return target;
     }
 
     public void insertion() {
