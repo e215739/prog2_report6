@@ -49,7 +49,7 @@ public class Tictactoe {
     }
 
     /**
-     * 
+     * 記号を挿入できる場所をリストに追加するメソッド
      * @param bord 盤面の状況
      * @return 記号を挿入できる場所
      */
@@ -91,6 +91,12 @@ public class Tictactoe {
      */
     public void insertion() {
         String player;
+        if (!canInsertion.contains(target)) {
+            System.out.println("そこには置けません");
+            System.out.println("別の場所を選択してください");
+            turn--;
+            return;
+        }
         if (turn % 2 == 1) {
             player = MARU;
 
