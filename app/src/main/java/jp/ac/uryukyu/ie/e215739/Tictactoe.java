@@ -1,6 +1,7 @@
 package jp.ac.uryukyu.ie.e215739;
 
 import java.util.Scanner;
+import java.util.ArrayList;
 
 /**
  * ○×ゲームのクラス
@@ -20,6 +21,7 @@ public class Tictactoe {
     private static String BATU = "×";
     private Scanner scanner;
     private boolean isEnd;
+    private ArrayList<Integer> canInsertion;
     
     /**
      * コンストラクタ。盤面、ターン、スキャナー、終了を指定する。
@@ -29,6 +31,7 @@ public class Tictactoe {
         turn = 1;
         scanner = new Scanner(System.in);
         isEnd = false;
+        canInsertion = new ArrayList<>();
     }
 
     /**
@@ -36,12 +39,29 @@ public class Tictactoe {
      */
     public void start() {
         while (!isEnd) {
+            canInsertion = makeCanInsertion(bord);
             display(bord);
-            target = player();
+            target = player(canInsertion);
             insertion();
             isEnd = judge(bord);
             turn++;
         }
+    }
+
+    /**
+     * 
+     * @param bord 盤面の状況
+     * @return 記号を挿入できる場所
+     */
+    public ArrayList<Integer> makeCanInsertion(String[] bord) {
+        ArrayList<Integer> canInsertion = new ArrayList<>();
+        for (int i = 0; i < 9; i++) {
+            if (bord[i] == "-") {
+                canInsertion.add(i + 1);
+            }
+        }
+
+        return canInsertion;
     }
     
     /**
@@ -59,8 +79,9 @@ public class Tictactoe {
      * 標準入力を取得するメソッド
      * @return　取得した入力
      */
-    public int player() {
+    public int player(ArrayList<Integer> canInsertion) {
         System.out.println("入れたい場所を入力してください");
+        System.out.println(canInsertion.toString());
         target = scanner.nextInt();
         return target;
     }
