@@ -8,8 +8,8 @@ import java.util.ArrayList;
  * String[] bord; //盤面
  * int turn; //ターン
  * int target; //挿入するマス目の番号
- * static String MARU; //マスに挿入する記号　○
- * static String BATU; //マスに挿入する記号　×
+ * static String MARU; //マスに挿入する記号 ○
+ * static String BATU; //マスに挿入する記号 ×
  * Scanner scanner; //プレイヤーの入力受付用
  * boolean isEnd; //ゲームを続けるかどうかの判定
  * ArratList<Integer> canInsertion; //記号を挿入できる場所の一覧
@@ -23,9 +23,9 @@ public class Tictactoe {
     private Scanner scanner;
     private boolean isEnd;
     private ArrayList<Integer> canInsertion;
-    
+
     /**
-     * コンストラクタ。盤面、ターン、スキャナー、終了を指定する。
+     * コンストラクタ。盤面、ターン、スキャナー、終了を指定する、記号を挿入できる場所の一覧。
      */
     public Tictactoe() {
         bord = new String[] { "-", "-", "-", "-", "-", "-", "-", "-", "-" };
@@ -51,6 +51,7 @@ public class Tictactoe {
 
     /**
      * 記号を挿入できる場所をリストに追加するメソッド
+     * 
      * @param bord 盤面の状況
      * @return 記号を挿入できる場所
      */
@@ -64,13 +65,14 @@ public class Tictactoe {
 
         return canInsertion;
     }
-    
+
     /**
      * ターミナルに盤面を表示するメソッド
-     * @param bord　表示したい盤面
+     * 
+     * @param bord 表示したい盤面
      */
-    public void display(String[] bord){
-        for(int i = 0;i < 9; i++){
+    public void display(String[] bord) {
+        for (int i = 0; i < 9; i++) {
             System.out.println(bord[i] + bord[i + 1] + bord[i + 2]);
             i += 2;
         }
@@ -78,12 +80,21 @@ public class Tictactoe {
 
     /**
      * 標準入力を取得するメソッド
-     * @return　取得した入力
+     * @param canInsertion 記号を挿入できる場所の一覧
+     * @return 取得した入力
      */
     public int player(ArrayList<Integer> canInsertion) {
-        System.out.println("入れたい場所を入力してください");
-        System.out.println(canInsertion.toString());
-        target = scanner.nextInt();
+        while (true) {
+            System.out.println("入れたい場所を入力してください");
+            System.out.println(canInsertion.toString());
+            if (scanner.hasNextInt()) {
+                target = scanner.nextInt();
+                break;
+            } else {
+                System.out.println("数字を入力してください");
+                scanner.nextLine();
+            }
+        }
         return target;
     }
 
@@ -138,12 +149,13 @@ public class Tictactoe {
 
     /**
      * ゲームが終了するかを判定するメソッド
-     * @param bord　確認するボード
-     * @return　ゲームの終了状態
+     * 
+     * @param bord 確認するボード
+     * @return ゲームの終了状態
      */
     public boolean judge(String[] bord) {
         for (int i = 0; i < 9; i++) {
-            if (bord[i] != "-" && bord[i] == bord[i + 1] && bord[i] == bord[i + 2]) {//across
+            if (bord[i] != "-" && bord[i] == bord[i + 1] && bord[i] == bord[i + 2]) {// across
                 System.out.println(bord[i] + "の勝ち");
                 return true;
             } else {
@@ -151,13 +163,13 @@ public class Tictactoe {
             }
         }
         for (int i = 0; i < 3; i++) {
-            if (bord[i] != "-" && bord[i] == bord[i + 3] && bord[i] == bord[i + 6]) {//down
+            if (bord[i] != "-" && bord[i] == bord[i + 3] && bord[i] == bord[i + 6]) {// down
                 System.out.println(bord[i] + "の勝ち");
                 return true;
-            } 
+            }
         }
-        
-        if (bord[6] != "-" && bord[6] == bord[4] && bord[6] == bord[2]) {//slanting
+
+        if (bord[6] != "-" && bord[6] == bord[4] && bord[6] == bord[2]) {// slanting
             System.out.println(bord[6] + "の勝ち");
             return true;
         }
@@ -172,8 +184,7 @@ public class Tictactoe {
             return true;
         }
         return false;
-        
-    }
-    
-}
 
+    }
+
+}
