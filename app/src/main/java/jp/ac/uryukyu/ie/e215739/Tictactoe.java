@@ -12,6 +12,7 @@ import java.util.ArrayList;
  * static String BATU; //マスに挿入する記号　×
  * Scanner scanner; //プレイヤーの入力受付用
  * boolean isEnd; //ゲームを続けるかどうかの判定
+ * ArratList<Integer> canInsertion; //記号を挿入できる場所の一覧
  */
 public class Tictactoe {
     private String[] bord;
